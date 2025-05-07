@@ -1,7 +1,8 @@
 package com.devbigode.petadoption.util;
 
+import com.devbigode.petadoption.service.PetService;
+import static com.devbigode.petadoption.app.Main.input;
 import java.util.InputMismatchException;
-import java.util.Scanner;
 
 public class Menu {
 
@@ -16,10 +17,11 @@ public class Menu {
         System.out.println(options);
     }
 
-    public static void validateChoice(){
-        try (Scanner input = new Scanner(System.in)){
+    public static int validateChoice(){
+        int choice = 0;
+
+        try {
             System.out.print("Escolha uma opção: ");
-            int choice = 0;
 
             while ((choice < 1 || choice > 6)){
                 choice = input.nextInt();
@@ -29,9 +31,37 @@ public class Menu {
                     System.out.print("Digite um número natural válido: ");
                 }
             }
-
+            input.nextLine();
         } catch (InputMismatchException e){
             throw new InputMismatchException("Entrada inválida. Digite um número natural.");
+        }
+
+        return choice;
+    }
+
+    public static void selectedOption(int option){
+        switch (option){
+            case 1:
+                PetService.createPet();
+                break;
+            case 2:
+                System.out.println("2");
+                break;
+            case 3:
+                System.out.println("3");
+                break;
+            case 4:
+                System.out.println("4");
+                break;
+            case 5:
+                System.out.println("5");
+                break;
+            case 6:
+                System.out.println("Sistema encerrando...");
+                break;
+            default:
+                System.out.println("Opção inválida!");
+                break;
         }
     }
 }
