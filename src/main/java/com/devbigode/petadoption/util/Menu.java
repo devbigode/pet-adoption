@@ -34,8 +34,4 @@ public class Menu {
             throw new InputMismatchException("Entrada inválida. Digite um número natural.");
         }
     }
-
-    public static void main(String[] args) {
-        validateChoice();
-    }
 }
