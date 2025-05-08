@@ -1,5 +1,6 @@
 package com.devbigode.petadoption.util;
 
+import com.devbigode.petadoption.model.Pet;
 import com.devbigode.petadoption.service.PetService;
 import static com.devbigode.petadoption.app.Main.input;
 import java.util.InputMismatchException;
@@ -45,7 +46,8 @@ public class Menu {
             case 1:
                 System.out.println("--- Tela de cadastro de animal de estimação ---");
                 List<String> questionsList = FileUtils.readQuestions();
-                PetService.createPet(questionsList);
+                Pet createdPet = PetService.createPet(questionsList);
+                FileUtils.petToFile(createdPet);
                 break;
             case 2:
                 System.out.println("2");
