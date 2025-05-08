@@ -1,11 +1,9 @@
 package com.devbigode.petadoption.service;
 
 import com.devbigode.petadoption.model.*;
-
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.regex.Pattern;
-
 import static com.devbigode.petadoption.app.Main.input;
 
 public class PetService {
@@ -222,7 +220,7 @@ public class PetService {
         pet.setBreed(breed);
     }
 
-    public static void createPet(List<String> questionsList) {
+    public static Pet createPet(List<String> questionsList) {
         if (questionsList == null) {
             throw new NullPointerException("A lista de perguntas é nula ou está vazia.");
         }
@@ -242,6 +240,7 @@ public class PetService {
             }
         }
 
-        System.out.println(newPet);
+        System.out.println("\nPet criado com sucesso!✅");
+        return newPet;
     }
 }
