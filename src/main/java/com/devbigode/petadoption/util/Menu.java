@@ -3,6 +3,7 @@ package com.devbigode.petadoption.util;
 import com.devbigode.petadoption.service.PetService;
 import static com.devbigode.petadoption.app.Main.input;
 import java.util.InputMismatchException;
+import java.util.List;
 
 public class Menu {
 
@@ -42,7 +43,9 @@ public class Menu {
     public static void selectedOption(int option){
         switch (option){
             case 1:
-                PetService.createPet();
+                System.out.println("--- Tela de cadastro de animal de estimação ---");
+                List<String> questionsList = FileUtils.readQuestions();
+                PetService.createPet(questionsList);
                 break;
             case 2:
                 System.out.println("2");

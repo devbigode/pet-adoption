@@ -7,13 +7,19 @@ import java.util.List;
 
 public class FileUtils {
 
-    public static void readFile(){
+    public static List<String> readQuestions(){
         try {
             List<String> questionsList = Files.readAllLines(Paths.get("formulario.txt"));
             questionsList.removeIf(String::isBlank);
-            questionsList.forEach(System.out::println);
+
+            if (!questionsList.isEmpty()){
+                return questionsList;
+            }
+
         } catch (IOException e){
             e.printStackTrace();
         }
+
+        return null;
     }
 }
