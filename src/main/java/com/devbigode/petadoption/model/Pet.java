@@ -38,7 +38,7 @@ public class Pet {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(double age) {
         this.age = age;
     }
 
