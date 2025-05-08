@@ -73,4 +73,18 @@ public class Pet {
     public void setAddress(Address address) {
         this.address = address;
     }
+
+    @Override
+    public String toString() {
+        return "Pet{" +
+                "name='" + name + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", breed='" + breed + '\'' +
+                ", age=" + age +
+                ", weight=" + weight +
+                ", type=" + type +
+                ", sex=" + sex +
+                ", address=" + address +
+                '}';
+    }
 }

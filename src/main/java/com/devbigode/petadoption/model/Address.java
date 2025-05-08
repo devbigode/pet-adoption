@@ -1,21 +1,17 @@
 package com.devbigode.petadoption.model;
 
 public class Address {
-    private int number;
+    private String number;
     private String street;
     private String city;
 
-    public Address(int number, String street, String city){
-        this.number = number;
-        this.street = street;
-        this.city = city;
-    }
+    public Address(){}
 
-    public int getNumber(){
+    public String getNumber(){
         return number;
     }
 
-    public void setNumber(int number){
+    public void setNumber(String number){
         this.number = number;
     }
 
@@ -33,5 +29,14 @@ public class Address {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "number='" + number + '\'' +
+                ", street='" + street + '\'' +
+                ", city='" + city + '\'' +
+                '}';
     }
 }
