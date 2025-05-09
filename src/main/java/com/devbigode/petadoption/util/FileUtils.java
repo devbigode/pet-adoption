@@ -58,7 +58,7 @@ public class FileUtils {
         pr.println("4 - " + createdPet.getAddress().getStreet() + ", "
                 + createdPet.getAddress().getNumber() + ", "
                 + createdPet.getAddress().getCity());
-        pr.printf("5 - %.2f anos%n", createdPet.getAge());
+        pr.printf("5 - %.1f anos%n", createdPet.getAge());
         pr.printf("6 - %.2fkg%n", createdPet.getWeight());
         pr.println("7 - " + createdPet.getBreed());
 
