@@ -1,12 +1,16 @@
 package com.devbigode.petadoption.service;
 
 import com.devbigode.petadoption.model.*;
-import java.util.InputMismatchException;
+import com.devbigode.petadoption.util.FileUtils;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.regex.Pattern;
 import static com.devbigode.petadoption.app.Main.input;
 
 public class PetService {
+
+    public static final List<Pet> petList = new ArrayList<>();
 
     public static final String NAO_INFORMADO = "NÃO INFORMADO";
 
@@ -116,16 +120,16 @@ public class PetService {
 
         boolean isNumber = Pattern.matches("^[0-9]+$", number);
 
+        if (street.isBlank() || city.isBlank()) {
+            throw new IllegalArgumentException("Rua e cidade não devem estar vazias.");
+        }
+
         if (!patternText.matcher(street).matches()) {
             throw new IllegalArgumentException("Campo 'rua' só pode conter letras.");
         }
 
         if (!patternText.matcher(city).matches()) {
             throw new IllegalArgumentException("Campo 'cidade' só pode conter letras.");
-        }
-
-        if (street.isBlank() || city.isBlank()) {
-            throw new IllegalArgumentException("Rua e cidade não devem estar vazias.");
         }
 
         if (!isNumber) {
@@ -242,5 +246,39 @@ public class PetService {
 
         System.out.println("\nPet criado com sucesso!✅");
         return newPet;
+    }
+
+    public static void addPet(){
+        System.out.println("\n--- Tela de cadastro de animal de estimação ---");
+
+        List<String> questionsList = FileUtils.readQuestions();
+        Pet createdPet = PetService.createPet(questionsList);
+        PetService.petToList(createdPet);
+        FileUtils.petToFile(createdPet);
+    }
+
+    public static void petToList(Pet newPet){
+        petList.add(newPet);
+        System.out.println("\nPet armazenado com sucesso!✅");
+    }
+
+    public static void printPet(Pet pet){
+        System.out.printf("%s %s - %s - %s - %s, %s - %s - %.1f anos - %.2fkg - %s%n",
+                pet.getName(), pet.getLastname(),
+                pet.getType().getName(),
+                pet.getSex().getName(),
+                pet.getAddress().getStreet(), pet.getAddress().getNumber(), pet.getAddress().getCity(),
+                pet.getAge(),
+                pet.getWeight(),
+                pet.getBreed());
+    }
+
+    public static void getAllPet(){
+        if (petList.isEmpty()){
+            System.out.println("\nNenhum animal de estimação foi cadastrado.");
+        } else {
+            System.out.println("\n--- Lista de pets cadastrados ---\n");
+            petList.forEach(PetService::printPet);
+        }
     }
 }
