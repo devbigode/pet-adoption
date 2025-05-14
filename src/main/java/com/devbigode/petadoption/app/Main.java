@@ -1,6 +1,6 @@
 package com.devbigode.petadoption.app;
 
-import com.devbigode.petadoption.util.Menu;
+import com.devbigode.petadoption.ui.Menu;
 import java.util.Scanner;
 
 public class Main {
@@ -16,6 +16,8 @@ public class Main {
             choice = Menu.validateChoice();
             Menu.selectedOption(choice);
         } while (choice != 6);
+
+        input.close();
     }
 
     public static void main(String[] args) {
