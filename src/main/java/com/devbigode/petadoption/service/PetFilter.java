@@ -1,9 +1,9 @@
 package com.devbigode.petadoption.service;
 
 import com.devbigode.petadoption.model.Pet;
-import com.devbigode.petadoption.ui.PetConsoleUI;
 
 import java.text.Normalizer;
+import java.util.List;
 
 public class PetFilter {
     public static String normalize(String input) {
@@ -12,77 +12,52 @@ public class PetFilter {
                 .toLowerCase();
     }
 
-    public static void filterByFullName(String type, String name, String lastname) {
-        String inputName = normalize(name);
-        String inputLastname = normalize(lastname);
+    public static List<Pet> filterByFullName(String type, String name, String lastname) {
+        String inputName = PetFilter.normalize(name);
+        String inputLastname = PetFilter.normalize(lastname);
 
-        for (Pet pet : PetService.petList) {
-            String petName = normalize(pet.getName());
-            String petLastname = normalize(pet.getName());
-
-            if (pet.getType().getName().equalsIgnoreCase(type) && (petName.contains(inputName) || petLastname.contains(inputLastname))) {
-                PetConsoleUI.printPet(pet);
-            }
-        }
+        return PetService.petList.stream()
+                .filter(pet -> pet.getType().getName().equalsIgnoreCase(type) &&
+                        (normalize(pet.getName()).contains(inputName) ||
+                                normalize(pet.getLastname()).contains(inputLastname))).toList();
     }
 
-    public static void filterBySex(String type, String sex) {
+    public static List<Pet> filterBySex(String type, String sex) {
         String inputSex = normalize(sex);
 
-        for (Pet pet : PetService.petList) {
-
-            String petSex = normalize(pet.getSex().getName());
-
-            if (pet.getType().getName().equalsIgnoreCase(type) && petSex.equals(inputSex)) {
-                PetConsoleUI.printPet(pet);
-            }
-        }
+        return PetService.petList.stream()
+                .filter(pet -> pet.getType().getName().equalsIgnoreCase(type) &&
+                        normalize(pet.getSex().getName()).equalsIgnoreCase(inputSex)).toList();
     }
 
-    public static void filterByAge(String type, double age) {
-        for (Pet pet : PetService.petList) {
-            if (pet.getType().getName().equalsIgnoreCase(type) && pet.getAge() == age) {
-                PetConsoleUI.printPet(pet);
-            }
-        }
+    public static List<Pet> filterByAge(String type, double age) {
+        return PetService.petList.stream()
+                .filter(pet -> pet.getType().getName().equalsIgnoreCase(type) &&
+                        pet.getAge() == age).toList();
     }
 
-    public static void filterByWeight(String type, double weight) {
-        for (Pet pet : PetService.petList) {
-            if (pet.getType().getName().equalsIgnoreCase(type) && pet.getWeight() == weight) {
-                PetConsoleUI.printPet(pet);
-            }
-        }
+    public static List<Pet> filterByWeight(String type, double weight) {
+        return PetService.petList.stream()
+                .filter(pet -> pet.getType().getName().equalsIgnoreCase(type) &&
+                        pet.getWeight() == weight).toList();
     }
 
-    public static void filterByBreed(String type, String breed) {
+    public static List<Pet> filterByBreed(String type, String breed) {
         String inputBreed = normalize(breed);
 
-        for (Pet pet : PetService.petList) {
-            String petBreed = normalize(pet.getBreed());
-
-            if (pet.getType().getName().equalsIgnoreCase(type) && petBreed.contains(inputBreed)) {
-                PetConsoleUI.printPet(pet);
-            }
-        }
+        return PetService.petList.stream()
+                .filter(pet -> pet.getType().getName().equalsIgnoreCase(type) &&
+                        normalize(pet.getBreed()).contains(inputBreed)).toList();
     }
 
-    public static void filterByAddress(String type, String number, String street, String city) {
-        String inputNumber = normalize(number);
+    public static List<Pet> filterByAddress(String type, String number, String street, String city) {
         String inputStreet = normalize(street);
         String inputCity = normalize(city);
 
-        for (Pet pet : PetService.petList) {
-            String petNumber = normalize(pet.getAddress().getNumber());
-            String petStreet = normalize(pet.getAddress().getStreet());
-            String petCity = normalize(pet.getAddress().getCity());
-
-            if (pet.getType().getName().equalsIgnoreCase(type) && (
-                    petNumber.contains(inputNumber) ||
-                    petStreet.contains(inputStreet) ||
-                    petCity.contains(inputCity))) {
-                PetConsoleUI.printPet(pet);
-            }
-        }
+        return PetService.petList.stream()
+                .filter(pet -> pet.getType().getName().equalsIgnoreCase(type) &&
+                        (normalize(pet.getAddress().getNumber()).equals(number) ||
+                                normalize(pet.getAddress().getStreet()).contains(inputStreet) ||
+                                normalize(pet.getAddress().getCity()).contains(inputCity))).toList();
     }
 }

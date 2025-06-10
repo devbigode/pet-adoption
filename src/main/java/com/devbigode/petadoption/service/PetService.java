@@ -29,41 +29,39 @@ public class PetService {
 
         String[] searchChoice = PetValidator.validateChoiceSearch(PetConsoleUI.pickCriteria());
 
-        if (searchChoice == null) {
-            throw new IllegalArgumentException("Erro ao validar escolha de critérios.");
-        }
-
         if (searchChoice.length == 1) {
             switch (searchChoice[0]) {
                 case "1" -> {
                     String[] fullname = PetConsoleUI.askFullName();
-
                     String[] validFullname = PetValidator.validateFullName(fullname[0], fullname[1]);
-
-                    PetFilter.filterByFullName(chosenType, validFullname[0], validFullname[1]);
+                    List<Pet> filteredPets = PetFilter.filterByFullName(chosenType, validFullname[0], validFullname[1]);
+                    PetConsoleUI.printPet(filteredPets);
                 }
                 case "2" -> {
                     String validSex = PetValidator.validateSex(PetConsoleUI.askSex());
-                    PetFilter.filterBySex(chosenType, validSex);
+                    List<Pet> filteredPets = PetFilter.filterBySex(chosenType, validSex);
+                    PetConsoleUI.printPet(filteredPets);
                 }
                 case "3" -> {
                     double validAge = PetValidator.validateAge(PetConsoleUI.askAge());
-                    PetFilter.filterByAge(chosenType, validAge);
+                    List<Pet> filteredPets = PetFilter.filterByAge(chosenType, validAge);
+                    PetConsoleUI.printPet(filteredPets);
                 }
                 case "4" -> {
                     double validWeight = PetValidator.validateWeight(PetConsoleUI.askWeight());
-                    PetFilter.filterByWeight(chosenType, validWeight);
+                    List<Pet> filteredPets = PetFilter.filterByWeight(chosenType, validWeight);
+                    PetConsoleUI.printPet(filteredPets);
                 }
                 case "5" -> {
                     String validBreed = PetValidator.validateBreed(PetConsoleUI.askBreed());
-                    PetFilter.filterByBreed(chosenType, validBreed);
+                    List<Pet> filteredPets = PetFilter.filterByBreed(chosenType, validBreed);
+                    PetConsoleUI.printPet(filteredPets);
                 }
                 case "6" -> {
                     String[] address = PetConsoleUI.askAddress();
-
-                    String[] validAdress = PetValidator.validateAddress(address[0], address[1], address[2]);
-
-                    PetFilter.filterByAddress(chosenType, validAdress[0], validAdress[1], validAdress[2]);
+                    String[] validAddress = PetValidator.validateAddress(address[0], address[1], address[2]);
+                    List<Pet> filteredPets = PetFilter.filterByAddress(chosenType, validAddress[0], validAddress[1], validAddress[2]);
+                    PetConsoleUI.printPet(filteredPets);
                 }
                 default -> System.out.println("Opção desconhecida.");
             }
@@ -75,7 +73,7 @@ public class PetService {
             System.out.println("\nNenhum animal de estimação foi cadastrado.");
         } else {
             System.out.println("\n--- Lista de pets cadastrados ---\n");
-            petList.forEach(PetConsoleUI::printPet);
+            PetConsoleUI.printPet(petList);
         }
     }
 

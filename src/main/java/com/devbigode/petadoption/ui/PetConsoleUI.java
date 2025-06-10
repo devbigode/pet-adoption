@@ -3,20 +3,24 @@ package com.devbigode.petadoption.ui;
 import com.devbigode.petadoption.model.Pet;
 
 import java.util.InputMismatchException;
+import java.util.List;
 
 import static com.devbigode.petadoption.app.Main.input;
 
 public class PetConsoleUI {
 
-    public static void printPet(Pet pet) {
-        System.out.printf("%s %s - %s - %s - %s, %s - %s - %.1f anos - %.2fkg - %s%n",
-                pet.getName(), pet.getLastname(),
-                pet.getType().getName(),
-                pet.getSex().getName(),
-                pet.getAddress().getStreet(), pet.getAddress().getNumber(), pet.getAddress().getCity(),
-                pet.getAge(),
-                pet.getWeight(),
-                pet.getBreed());
+    public static void printPet(List<Pet> petList) {
+        for (int i = 0; i < petList.size(); i++) {
+            System.out.printf("%d %s %s - %s - %s - %s, %s - %s - %.1f anos - %.2fkg - %s%n",
+                    (i + 1),
+                    petList.get(i).getName(), petList.get(i).getLastname(),
+                    petList.get(i).getType().getName(),
+                    petList.get(i).getSex().getName(),
+                    petList.get(i).getAddress().getStreet(), petList.get(i).getAddress().getNumber(), petList.get(i).getAddress().getCity(),
+                    petList.get(i).getAge(),
+                    petList.get(i).getWeight(),
+                    petList.get(i).getBreed());
+        }
     }
 
     public static String pickCriteria(){
