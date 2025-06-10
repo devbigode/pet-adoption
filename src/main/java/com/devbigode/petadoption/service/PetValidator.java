@@ -104,7 +104,7 @@ public class PetValidator {
             throw new IllegalArgumentException("Critério não pode estar vazio.");
         }
 
-        if (!(choice.matches("[1-6]") | choice.matches("[1-6] [eE] [1-6]"))) {
+        if (!(choice.matches("[1-6]") || choice.matches("[1-6] [eE] [1-6]"))) {
             throw new IllegalArgumentException("Número fora do limite (1 a 6) ou formato de busca inválido. Exemplos aceitos: 4 | 3 e 6");
         }
 
@@ -119,8 +119,10 @@ public class PetValidator {
             return new String[]{attrOne, attrTwo};
         }
 
-        if (choice.length() == 1) return new String[]{choice};
+        if (choice.length() != 1) {
+            throw new IllegalArgumentException("Erro ao validar escolha de critérios.");
+        }
 
-        return null;
+        return new String[]{choice};
     }
 }
